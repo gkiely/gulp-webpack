@@ -32,10 +32,8 @@ gulp.task('webpack:dev', function(cb){
   wpConfig.output = {
     filename: 'bundle.js'
   };
-
   return gulp.src('App.js')
   .pipe(webpack(wpConfig))
-  .pipe(gulp.dest(''))
 });
 
 // gulp.task('watch', function(){
