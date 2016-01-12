@@ -12,6 +12,7 @@ var gulp          = require('gulp'),
     // remember      = require('gulp-remember');
     // sass          = require('gulp-sass'),
     // sourcemaps    = require('gulp-sourcemaps'),
+    gulpif        = require('gulp-if'),
     webserver     = require('gulp-webserver'),
     // webpack       = require('webpack'),
     webpack       = require('webpack-stream'),
@@ -20,7 +21,10 @@ var gulp          = require('gulp'),
     htmlmin       = function(){},
     minifyCSS     = function(){},
     uglify        = function(){},
-    wpConfig      = require('./webpack.config.js');
+    yargs         = require('yargs');
+
+
+var prod = yargs.argv.prod;
 
 
 gulp.task('server', function(){
@@ -29,9 +33,11 @@ gulp.task('server', function(){
 });
 
 gulp.task('webpack:dev', function(cb){
+  var wpConfig = prod ? require('./webpack.prod.js') : require('./webpack.config.js');  
   wpConfig.output = {
     filename: 'bundle.js'
   };
+
   return gulp.src('App.js')
   .pipe(webpack(wpConfig))
   .pipe(gulp.dest(''))
@@ -42,5 +48,9 @@ gulp.task('webpack:dev', function(cb){
 // });
 
 
-
-gulp.task('default', ['server', 'webpack:dev']);
+if(prod){
+  gulp.task('default', ['webpack:dev']);  
+}
+else{
+  gulp.task('default', ['server', 'webpack:dev']);  
+}
