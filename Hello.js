@@ -10,7 +10,7 @@ test = test * 100;
 
 class Hello extends React.Component {
   render() {
-    return <span>Hello thar mate </span>
+    return <span>Hello thar matey </span>
   }
 }
 

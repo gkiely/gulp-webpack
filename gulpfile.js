@@ -34,6 +34,7 @@ gulp.task('webpack:dev', function(cb){
   };
   return gulp.src('App.js')
   .pipe(webpack(wpConfig))
+  .pipe(gulp.dest(''))
 });
 
 // gulp.task('watch', function(){
